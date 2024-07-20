@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, File, UploadFile, Form
 from fastapi.responses import JSONResponse
 from openai import OpenAI
-
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from openai import BaseModel, OpenAI
 import json
@@ -16,6 +16,14 @@ import base64
 import logging
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows any origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows any method (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],  # Allows any header
+)
+
 
 class DeviceData(BaseModel):
     device_model: str
